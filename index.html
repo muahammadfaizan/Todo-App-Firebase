@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+    
+       
+    <h1 class="text-center text-4xl mt-24">Login</h1>
+    
+    <form id="form" class="flex justify-center flex-col items-center flex-wrap gap-5 mt-10">
+       
+        <label for="email" class="block text-2xl font-mediun">Email</label>
+        <input  type="email" placeholder="Enter your Email" id="email" required class="border rounded-lg w-96 h-10 focus:ring-2 shadow-md ring-1 ring-sky py-1.5 text-xl">
+
+        <label for="password" class="block text-2xl">Password</label>
+        <input type="password" placeholder="Enter your Password" id="password" class="border rounded-lg w-96 h-10 focus:ring-2 shadow-md ring-1 ring-sky py-1.5 ">
+
+        <button class="btn btn-primary mt-11 rounded-lg w-[7rem]">Login</button>
+    </form>
+
+    <div class="text-center mt-5">
+        <a class="text-[#1F7ACC]" href="register.html">Sign up</a>
+        <span class="text-center">Not a User?</span>
+    </div>
+
+    <script type="module" src="login.js"></script>
+
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo app</title>
+
+   
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="bg-[#B8ADAD] py-[4em] h-screen">
+
+    <h1 class="text-center text-6xl">Todo App</h1>
+
+    <form id="form" class="flex justify-center items-center flex-wrap mt-10">
+    <input class="border border-black border-2 ring-4  rounded-lg w-[40rem] h-11 shadow-lg text-2xl mx-[2rem]" type="text" placeholder="Enter your todo" id="todo">
+
+    <button class="btn bg-[#000000] text-white mt-1 text-lg">Add Todo</button>
+    </form>
+
+           
+    <ul id="ul" class="text-center mt-5">
+
+    </ul>
+
+    <div class="text-center mt-10 ">       
+    <button class="logout btn text-2xl bg-[#000000] text-white">Logout</button>
+    </div>
+
+    <script type="module" src="home.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</body>
+</html>
