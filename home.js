@@ -8,6 +8,9 @@ import {
   addDoc, 
   getDocs, 
   doc,  
+  deleteDoc,
+  updateDoc,
+  query,
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js"; 
 
 import { auth , db } from "./config.js";
@@ -46,17 +49,17 @@ let arr = []
 
 
 async function getData() {
-    const querySnapshot = await getDocs(collection(db, "todos"));
-querySnapshot.forEach((doc) => {
-  console.log(doc.data());
-  arr.push({ ...doc.data() , docId : doc.id})
-  console.log(doc.id);
-});
-console.log(arr);
-renderTodo();
+  arr = [];
+  const q = query(collection(db, "todos"))
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach((doc) => {
+    arr.push({ ...doc.data(), id: doc.id });
+  });
+  console.log(arr);
+  renderTodo();
 }
 
-getData()
+getData();
 
 
 
@@ -73,9 +76,42 @@ if(arr.length === 0){
 }
 arr.map((item)=>{
    ul.innerHTML += `
-   <li class = "font-serif text-4xl mt-3 mx-[3rem]">${item.todo}</li>
-   `
+   <li class = "font-serif text-2xl mt-3 mx-[3rem]">${item.todo}
+   <button id="deleteBtn" class="btn bg-[#000000] text-white">Delete</button>
+   <button id="editBtn" class="btn bg-[#000000] text-white">Edit</button>
+   </li>
+   `   
 });
+
+const deleteBtn = document.querySelectorAll("#deleteBtn")
+const editBtn = document.querySelectorAll("#editBtn")
+
+deleteBtn.forEach((btn, index) => {
+  btn.addEventListener("click", async () => {
+    try {
+      console.log(arr[index]);
+      await deleteDoc(doc(db, "todos", arr[index].id));
+      console.log("Data deleted successfull");
+      arr.splice(index, 1);
+      renderTodo();
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  });
+});
+editBtn.forEach((btn, index) => {
+  btn.addEventListener("click", async () => {
+    const updatedNewValue = prompt("enter new value");
+    const todoUpdate = doc(db, "todos", arr[index].id);
+    await updateDoc(todoUpdate, {
+      todo: updatedNewValue,
+    });
+    console.log("Data updated");
+    arr[index].todo = updatedNewValue;
+    renderTodo();
+  });
+});
+
 }
 
 
@@ -88,13 +124,15 @@ arr.map((item)=>{
 form.addEventListener("submit" , async (event)=>{
     event.preventDefault();
     // console.log(todo.value);
-    arr.push({
-        todo: todo.value,
-    })
     try {
         const docRef = await addDoc(collection(db, "todos"), {
        todo: todo.value,
 });
+arr.push({
+  todo: todo.value,
+  id : docRef.id
+})
+
     console.log("Document written with ID: ", docRef.id);     
     todo.value = ""
    renderTodo()
